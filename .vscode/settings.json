@@ -47,6 +47,8 @@
         "stdexcept": "c",
         "streambuf": "c",
         "typeinfo": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "iostream": "cpp",
+        "istream": "cpp"
     }
 }

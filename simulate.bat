@@ -1,1 +1,1 @@
-start C:\devkitPro\simulators\no$gba-win\NO$GBA.EXE C:\devkitPro\projects\PokemonTse\PokemonTse.nds
+start C:\devkitPro\emulators\melonDS_0.9.5_win_x64\melonDS.exe C:\devkitPro\projects\Socket_TCP_NDS\Socket_TCP_NDS.nds

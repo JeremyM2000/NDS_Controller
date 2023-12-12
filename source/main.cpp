@@ -10,6 +10,8 @@
 #include <cstdio>
 #include <string>
 
+#include "../include/key.h"
+
 //---------------------------------------------------------------------------------
 int main(void) {
 //---------------------------------------------------------------------------------
@@ -41,6 +43,11 @@ int main(void) {
 	//Control of input
 	u32 keys_down;
 	u32 keys_up;
+	u32 keys_held;
+	Key* keys = init_keys();
+	touchPosition touch;
+	char pos_x[6];
+	char pos_y[6];
 	keysSetRepeat(20, 5);
 
 	// Create a TCP socket
@@ -72,105 +79,36 @@ int main(void) {
 			scanKeys();
 			keys_down = keysDownRepeat();
 			keys_up = keysUp();
+			keys_held = keysHeld();
 
 			message = "";
 
- 			if(keys_down & KEY_X)
+			for(unsigned int i = 0; i < 12; i++)
 			{
-				message = "X_D";
+				if(keys_down & keys[i].keyValue)
+				{
+					message = keys[i].down;
+					break;
+				}
+
+				else if(keys_up & keys[i].keyValue)
+				{
+					message = keys[i].up;
+					break;
+				}
 			}
-			else if(keys_down & KEY_Y)
+			if(message == "")
 			{
-				message = "Y_D";
-			}
-			else if(keys_down & KEY_B)
-			{
-				message = "B_D";
-			}
-			else if(keys_down & KEY_A)
-			{
-				message = "A_D";
-			}
-			else if(keys_down & KEY_UP)
-			{
-				message = "U_D";
-			}
-			else if(keys_down & KEY_DOWN)
-			{
-				message = "D_D";
-			}
-			else if(keys_down & KEY_LEFT)
-			{
-				message = "G_D";
-			}
-			else if(keys_down & KEY_RIGHT)
-			{
-				message = "Q_D";
-			}
-			else if(keys_down & KEY_L)
-			{
-				message = "L_D";
-			}
-			else if(keys_down & KEY_R)
-			{
-				message = "R_D";
-			}
-			else if(keys_down & KEY_START)
-			{
-				message = "S_D";
-			}
-			else if(keys_down & KEY_SELECT)
-			{
-				message = "E_D";
-			}
-			//------------------------------
-			else if(keys_up & KEY_X)
-			{
-				message = "X_U";
-			}
-			else if(keys_up & KEY_Y)
-			{
-				message = "Y_U";
-			}
-			else if(keys_up & KEY_B)
-			{
-				message = "B_U";
-			}
-			else if(keys_up & KEY_A)
-			{
-				message = "A_U";
-			}
-			else if(keys_up & KEY_UP)
-			{
-				message = "U_U";
-			}
-			else if(keys_up & KEY_DOWN)
-			{
-				message = "D_U";
-			}
-			else if(keys_up & KEY_LEFT)
-			{
-				message = "G_U";
-			}
-			else if(keys_up & KEY_RIGHT)
-			{
-				message = "Q_U";
-			}
-			else if(keys_up & KEY_L)
-			{
-				message = "L_U";
-			}
-			else if(keys_up & KEY_R)
-			{
-				message = "R_U";
-			}
-			else if(keys_up & KEY_START)
-			{
-				message = "S_U";
-			}
-			else if(keys_up & KEY_SELECT)
-			{
-				message = "E_U";
+				if(keys_held & KEY_TOUCH) {
+					touchRead(&touch);
+					sprintf(pos_x, "%04i", (touch.rawx - 184));
+					sprintf(pos_y, "%04i", (touch.rawy - 200));
+					message = "T_D" + std::string(pos_x) + std::string(pos_y);
+				}
+				else if(keys_up & KEY_TOUCH)
+				{
+					message = "T_U";
+				}
 			}
 
 			if(message != "")

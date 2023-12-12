@@ -62,7 +62,8 @@ main.o: C:/devkitPro/projects/Socket_TCP_NDS/source/main.cpp \
  C:/devkitPro/libnds/include/dswifi9.h \
  C:/devkitPro/libnds/include/dswifi_version.h \
  C:/devkitPro/libnds/include/netinet/in.h \
- C:/devkitPro/libnds/include/sys/socket.h
+ C:/devkitPro/libnds/include/sys/socket.h \
+ C:/devkitPro/projects/Socket_TCP_NDS/include/key.h
 C:/devkitPro/libnds/include/nds.h:
 C:/devkitPro/libnds/include/nds/libversion.h:
 C:/devkitPro/libnds/include/nds/ndstypes.h:
@@ -127,3 +128,4 @@ C:/devkitPro/libnds/include/dswifi9.h:
 C:/devkitPro/libnds/include/dswifi_version.h:
 C:/devkitPro/libnds/include/netinet/in.h:
 C:/devkitPro/libnds/include/sys/socket.h:
+C:/devkitPro/projects/Socket_TCP_NDS/include/key.h:
